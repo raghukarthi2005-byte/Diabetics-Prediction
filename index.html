@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Diabetics Prediction</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f4f6f9;
+    text-align:center;
+}
+
+.container{
+    width:400px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    margin-top:40px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px gray;
+}
+
+h1{
+    color:#2c3e50;
+}
+
+input{
+    width:90%;
+    padding:8px;
+    margin:6px;
+}
+
+button{
+    padding:10px 20px;
+    background:#2ecc71;
+    border:none;
+    color:white;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Diabetics Prediction</h1>
+
+<input type="number" id="pregnancies" placeholder="Enter Pregnancies"><br>
+<input type="number" id="glucose" placeholder="Enter Glucose"><br>
+<input type="number" id="bp" placeholder="Enter Blood Pressure"><br>
+<input type="number" id="skin" placeholder="Enter Skin Thickness"><br>
+<input type="number" id="insulin" placeholder="Enter Insulin"><br>
+<input type="number" step="0.1" id="bmi" placeholder="Enter BMI"><br>
+<input type="number" step="0.01" id="dpf" placeholder="Enter Diabetes Pedigree Function"><br>
+<input type="number" id="age" placeholder="Enter Age"><br>
+
+<button onclick="predict()">Predict</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+function predict(){
+
+let preg = parseInt(document.getElementById("pregnancies").value);
+let glucose = parseInt(document.getElementById("glucose").value);
+let bp = parseInt(document.getElementById("bp").value);
+let skin = parseInt(document.getElementById("skin").value);
+let insulin = parseInt(document.getElementById("insulin").value);
+let bmi = parseFloat(document.getElementById("bmi").value);
+let dpf = parseFloat(document.getElementById("dpf").value);
+let age = parseInt(document.getElementById("age").value);
+
+let score = 0;
+
+/* Reference medical thresholds */
+
+if(glucose > 125) score++;
+if(bmi > 30) score++;
+if(age > 45) score++;
+if(bp > 80) score++;
+if(insulin > 150) score++;
+if(dpf > 0.5) score++;
+if(preg > 4) score++;
+
+let result = "";
+
+if(score >= 3){
+    result = "⚠️ Diabetic Positive (High Risk)";
+    document.getElementById("result").style.color = "red";
+}
+else{
+    result = "✅ Non Diabetic (Low Risk)";
+    document.getElementById("result").style.color = "green";
+}
+
+document.getElementById("result").innerHTML = result;
+
+}
+
+</script>
+
+</body>
+</html>
